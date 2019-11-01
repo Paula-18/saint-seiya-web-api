@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 using saint_seiya_web_api.Modules;
 using saint_seiya_web_api.Dependencies;
 using System.Data.SqlClient;
@@ -8,11 +9,12 @@ namespace saint_seiya_web_api.Controllers
 {
     [Route("SaintSeiya/[controller]")]
     [ApiController]
-    public class CharacterController : Character
+    [EnableCors("AllowOrigin")]
+    public class CharacterController : ICharacter
     {
         List<Character> listOfCharacter => new List<Character>
         {
-            new Character
+            /*new Character
             {
                 Name = "",
                 Constellation = "",
@@ -66,10 +68,11 @@ namespace saint_seiya_web_api.Controllers
                 Weight = 0,
                 Description = "",
                 Abilities = "",
-            },
+            },*/
         };
 
         string connectionString = @"data source=LAPTOP-DD2A6LRV\SQLEXPRESS; initial catalog=db_saintseiya; user id=saintseiya; password=cosmo";
+
 
         [HttpGet("{id}")]
         public Character GetCharacter(int id)
@@ -79,7 +82,7 @@ namespace saint_seiya_web_api.Controllers
 
         [HttpGet]
 
-        public List<Character> GetCharacterList(int id)
+        public List<Character> GetCharacterList()
         {
             List<Character> characters = new List<Character>();
         
